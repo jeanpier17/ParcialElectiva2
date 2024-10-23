@@ -17,8 +17,8 @@ export class UsersService {
     return  this.userRepository.save(newUser); // Guardar el usuario en la base de datos
 }
 
-
-  async findAll(): Promise<User[]> { // Método para obtener todos los usuarios
+ // Método para obtener todos los usuarios
+  async findAll(): Promise<User[]> {
     return this.userRepository.find();
   }
   async findOneByEmail(email: string): Promise<User> {
