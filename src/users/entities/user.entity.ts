@@ -1,16 +1,22 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 
-@Entity()
+@Entity('users') 
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ name: 'first_name' }) 
   firstName: string;
 
-  @Column()
+  @Column({ name: 'last_name' }) 
   lastName: string;
 
-  @Column({ default: true })
-  isActive: boolean;
+  @Column({ unique: true }) 
+  email: string; 
+
+  @Column()
+  password: string;
+
+
 }
