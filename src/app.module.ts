@@ -13,17 +13,17 @@ import { AuthModule } from './auth/auth.module';
   imports: [
     UsersModule,
     TypeOrmModule.forRoot({
-      type: 'postgres',
+      type: 'mysql',  
       host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: '1234',
-      database: 'postgres',
+      port: 3306,      
+      username: 'root',  
+      password: '1234', 
+      database: 'mydb',  
       entities: [
-        __dirname + '/**/*.entity{.ts,.js}',
+        __dirname + '/*/.entity{.ts,.js}',
         User
       ],
-      synchronize: true,
+      synchronize: true,  
     }),
     AuthModule,
   ],

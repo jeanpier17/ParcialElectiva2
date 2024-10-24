@@ -34,24 +34,27 @@ export class AuthService {
 
   
 async login({ email, password }: LoginDto) {
+  // Buscar al usuario por email
   const user = await this.usersService.findOneByEmail(email);
   if (!user) {
     throw new UnauthorizedException('Email no coincide');
   }
 
-  const isPasswordValid = await bcrypt.compare(password, user.password);
-  if (!isPasswordValid) {
+  // Verificar la contraseña
+  const passwordMatches = await bcrypt.compare(password, user.password);
+  if (!passwordMatches) {
     throw new UnauthorizedException('Contraseña no coincide');
   }
-  
 
-  const payload={ email:user.email};
-  const token =  await this.jwtService.signAsync(payload)
+  // Crear el payload y firmar el token JWT
+  const payload = { sub: user.id, email: user.email }; 
+  const token = await this.jwtService.signAsync(payload);
 
   return {
-    token,
-    email,
+    accessToken: token,
+    userEmail: user.email,
   };
 }
+
   }
 
